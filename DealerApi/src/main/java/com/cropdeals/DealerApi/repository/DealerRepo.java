@@ -9,6 +9,6 @@ public interface DealerRepo extends MongoRepository<Dealer, String>{
 
 	
 	@Query("{'dealerName' : ?0}")
-	Dealer findOrdersByName(String itemName);
+	Dealer finddealerByName(String dealerName);
 
 }

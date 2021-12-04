@@ -2,17 +2,29 @@
 server:
   port: 8083
 
+eureka:
+  instance:
+    hostname: localhost  
+
 spring:
   application:
      name: Apigateway
   cloud:
     gateway:
       routes:
-      - id: dealerapi
+      - id: DealerApi
         uri: http://localhost:8080/
         predicates:
         - Path=/dealer/**
-      - id: farmerapi
+      - id: FarmerApi
         uri: http://localhost:8081/
         predicates:
         - Path=/farmer/**
+      - id: crop-avalilable
+        uri: http://localhost:8084/
+        predicates:
+        - Path=/crop/**
+      - id: AdminApi
+        uri: http://localhost:8082/
+        predicates:
+        - Path=/admin/**

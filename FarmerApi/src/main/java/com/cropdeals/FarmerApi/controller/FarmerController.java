@@ -26,34 +26,32 @@ import com.cropdeals.FarmerApi.repository.ProfileRepo;
 @RequestMapping("/farmer")
 public class FarmerController {
 	
-	@Autowired
-	ProfileRepo profileRepo;
-	
+
 	@Autowired
 	RestTemplate restTemplate;
 	
 	@Autowired
 	ProfileServices profileServices;
 	
-	@Bean
-	public void addtoServiceclass() {
-		profileServices.addlist(profileRepo.findAll());
-	} 
+	@Autowired
+	ProfileRepo profileRepo;
+	
 	
 	@PostMapping("/addfarmer")
-	public void addFarmer( @RequestBody FarmerProfile farmerProfile ) {
-		profileRepo.insert( farmerProfile );
+	public void savefarmer( @RequestBody FarmerProfile farmerProfile ) {
+		profileServices.addfarmer( farmerProfile );
 	}
 	
 	@PostMapping("/addcrop")
 	public void addCrops(@RequestBody Crops crop ) {
-		restTemplate.postForEntity("http://localhost:8084/crops/addcrop", crop,Crops.class);
+		restTemplate.postForEntity("http://crop-avalilable/crops/addcrop", crop,Crops.class);
 	}
 
 	@GetMapping("/allfarmers")
 	public List<FarmerProfile> showAllFarmers() {
-		return profileRepo.findAll();		
+		return profileServices.findAll();		
 	}
+	
 	
 	
 	@GetMapping("/allmycrops/{farmerId}")
@@ -70,9 +68,9 @@ public class FarmerController {
 		return allCrops.getListOfCrops();
 	}
 	
-	@GetMapping("/findfarmer/{itemName}")
-	public FarmerProfile findOrder ( @PathVariable String itemName ){
-		return profileRepo.findOrdersByName( itemName );
+	@GetMapping("/findfarmer/{farmerName}")
+	public FarmerProfile findfarmer ( @PathVariable String farmerName ){
+		return profileRepo.findfarmerByName( farmerName );
 	}
 	
 	@PutMapping("/update/{id}")
@@ -89,7 +87,7 @@ public class FarmerController {
 
 	}
 	
-	@GetMapping("/deleteFfarmer/{id}")
+	@GetMapping("/deletefarmer/{id}")
 	public String deleteFarmer( @PathVariable String id )	{
 		profileRepo.deleteById( id );
 		return ("Deleted Successfully");

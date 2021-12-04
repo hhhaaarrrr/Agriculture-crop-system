@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cropdeals.CropsAvailable.models.Crops;
 import com.cropdeals.CropsAvailable.models.ReturnAllCrops;
 import com.cropdeals.CropsAvailable.repository.CropRepo;
+import com.cropdeals.CropsAvailable.service.CropService;
+
+
  
 
 @RestController
@@ -22,35 +25,47 @@ public class CropController {
 
 	@Autowired
 	CropRepo repos;
+	
+	@Autowired
+	CropService  cropService;
+	
 	@Autowired
 	ReturnAllCrops returnAllCrops;
 	
+	
+	//adding crops
 	@PostMapping("/addcrop")
-	public void addCrops( @RequestBody Crops crop ) {
-		repos.insert( crop );
+	public String addCrops( @RequestBody Crops crop ) {
+		repos.save( crop );
+		return "new crop is added";
 	}
 	
+	//getting all crops
 	@GetMapping("/allcrops")
-	public ReturnAllCrops showAllCrps() {
-		returnAllCrops.setListOfCrops(repos.findAll());
-		return returnAllCrops;		
+	public List<Crops> getAllCrops() {
+		return repos.findAll();
 	}
  
+	//finding crops by using farmerid
+	
 	@GetMapping("/findmycrop/{id}")
 	public ReturnAllCrops findmycrop( @PathVariable String id ){
 		returnAllCrops.setListOfCrops(repos.findAllById( id ));
 		return returnAllCrops;
 	}
 	
+	
+	//updating crop
 	@PutMapping("/update/{id}")
-    public String updateOrder(@RequestBody Crops crop, @PathVariable String id) {
+    public String updatecrop(@RequestBody Crops crop, @PathVariable String id) {
         crop.setId( id );
         repos.save(crop);
         return ("Updated Successfully");
     }
 		
+	//deleting crop
 	@GetMapping("/delete/{id}")
-	public String deleteOrder( @PathVariable String id )	{
+	public String deletecrop( @PathVariable String id )	{
 		repos.deleteById(id);
 		return ("Deleted Successfully");
 	}

@@ -30,18 +30,13 @@ public class DealerController {
 	RestTemplate restTemplate;
 	
 	@PostMapping("/addDealer")
-	public void placeOrder( @RequestBody Dealer order ) {
-		repos.insert( order );
+	public void placedealer( @RequestBody Dealer dealer ) {
+		repos.insert( dealer );
 	}
 	
-	@PostMapping("/addcrop")
-	public void placeOrders(@RequestBody Crops crop ) {
-		restTemplate.postForEntity("http://localhost:8084/crops/addCrop", crop, Crops.class);
-	}
 
-	
 	@GetMapping("/all")
-	public List<Dealer> showAllOrders() {
+	public List<Dealer> showAlldealers() {
 		return repos.findAll();		
 	}
 	
@@ -51,20 +46,20 @@ public class DealerController {
 		return  restTemplate.getForObject("http://localhost:8084/crops/findmycrop/"+farmerId, ReturnAllCrops.class);
 	}
 
-	@GetMapping("/finddealer/{itemName}")
-	public Dealer findOrder ( @PathVariable String itemName ){
-		return repos.findOrdersByName( itemName );
+	@GetMapping("/finddealer/{dealerName}")
+	public Dealer finddealer ( @PathVariable String dealerName ){
+		return repos.finddealerByName( dealerName );
 	}
 	
 	@PutMapping("/update/{id}")
-    public String updateOrder(@RequestBody Dealer dealer, @PathVariable String id) {
+    public String updatedealer(@RequestBody Dealer dealer, @PathVariable String id) {
 		dealer.setId( id );
 		repos.save(dealer);
         return ("Updated Successfully");
     }
 		
 	@GetMapping("/delete/{id}")
-	public String deleteOrder( @PathVariable String id )	{
+	public String deletedealer( @PathVariable String id )	{
 		repos.deleteById( id );
 		return ("Deleted Successfully");
 	}
