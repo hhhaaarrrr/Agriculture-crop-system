@@ -17,8 +17,6 @@ import com.cropdeals.CropsAvailable.repository.CropRepo;
 import com.cropdeals.CropsAvailable.service.CropService;
 
 
- 
-
 @RestController
 @RequestMapping("/crops")
 public class CropController {
@@ -35,9 +33,9 @@ public class CropController {
 	
 	//adding crops
 	@PostMapping("/addcrop")
-	public String addCrops( @RequestBody Crops crop ) {
-		repos.save( crop );
-		return "new crop is added";
+	public void addCrops( @RequestBody Crops crop ) {
+		repos.insert( crop );
+		
 	}
 	
 	//getting all crops
@@ -53,6 +51,14 @@ public class CropController {
 		returnAllCrops.setListOfCrops(repos.findAllById( id ));
 		return returnAllCrops;
 	}
+	
+	
+	@PutMapping("/buycrop/{id}")
+    public void buyCrop(@RequestBody Crops crop,@PathVariable("id") String id) {
+        crop.setId( id );
+        
+        repos.save(crop);
+     }
 	
 	
 	//updating crop

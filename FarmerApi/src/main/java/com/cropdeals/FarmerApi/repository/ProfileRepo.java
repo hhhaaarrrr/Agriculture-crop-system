@@ -16,4 +16,11 @@ public interface ProfileRepo extends MongoRepository<FarmerProfile, String > {
 	
 	@Query("{ 'fName' : ?0 }")
 	FarmerProfile findfarmerByName(String farmerName);
+
+	FarmerProfile findByfName(String username);
+
+	
+
+	
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import com.cropdeals.DealerApi.models.Crops;
 import com.cropdeals.DealerApi.models.Dealer;
+import com.cropdeals.DealerApi.models.FarmerProfile;
 import com.cropdeals.DealerApi.models.ReturnAllCrops;
 import com.cropdeals.DealerApi.repository.DealerRepo;
  
@@ -29,7 +30,7 @@ public class DealerController {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	@PostMapping("/addDealer")
+	@PostMapping("/adddealer")
 	public void placedealer( @RequestBody Dealer dealer ) {
 		repos.insert( dealer );
 	}
@@ -43,9 +44,25 @@ public class DealerController {
 	 
 	@GetMapping("/allmycrops/{farmerId}")
 	public ReturnAllCrops showMyCrops(@PathVariable String farmerId) {
-		return  restTemplate.getForObject("http://localhost:8084/crops/findmycrop/"+farmerId, ReturnAllCrops.class);
+		return  restTemplate.getForObject("http://crop-avalilable/crops/findmycrop/"+farmerId, ReturnAllCrops.class);
 	}
 
+	@PutMapping("/giverating/{id}")
+    public String giveRatings(@RequestBody FarmerProfile farmerProfile, @PathVariable String id) {
+	 
+	restTemplate.put("http://FarmerApi/farmer/rating/"+id, farmerProfile);
+	return "rated successfully";
+    }
+	
+	@PutMapping("/buycrop/{id}")
+    public String buycrop(@RequestBody FarmerProfile farmerProfile, @PathVariable String id) {
+	 
+	restTemplate.put("http://crop-avalilable/crops/buycrop/"+id, farmerProfile);
+	return "requested successfully";
+    }
+	
+	
+	
 	@GetMapping("/finddealer/{dealerName}")
 	public Dealer finddealer ( @PathVariable String dealerName ){
 		return repos.finddealerByName( dealerName );

@@ -1,4 +1,4 @@
-package com.cropdeals.Admin.models;
+package com.cropdeals.CropsAvailable.models;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ public class Dealer {
 	private String id;
 	private String dealerName;
 	private List<String> subscriberCrop;
+	
 	public String getId() {
 		return id;
 	}

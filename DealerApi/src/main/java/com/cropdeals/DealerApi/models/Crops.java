@@ -1,5 +1,6 @@
 package com.cropdeals.DealerApi.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -14,9 +15,15 @@ public class Crops {
 	private String cropType;
 	private String location;
 	private int qty;
+	private List<String> dealersId = new ArrayList<String>();
 	
 	
-	public Crops(String id, String farmerID, String cropName, String cropType, String location, int qty) {
+	public Crops() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Crops(String id, String farmerID, String cropName, String cropType, String location, int qty,
+			List<String> dealersId) {
 		super();
 		this.id = id;
 		this.farmerID = farmerID;
@@ -24,10 +31,7 @@ public class Crops {
 		this.cropType = cropType;
 		this.location = location;
 		this.qty = qty;
-	}
-	public Crops() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.dealersId = dealersId;
 	}
 	public String getId() {
 		return id;
@@ -65,11 +69,17 @@ public class Crops {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
+	public List<String> getDealersId() {
+		return dealersId;
+	}
+	public void setDealersId(List<String> dealersId) {
+		this.dealersId = dealersId;
+	}
+	
 	@Override
 	public String toString() {
 		return "Crops [id=" + id + ", farmerID=" + farmerID + ", cropName=" + cropName + ", cropType=" + cropType
-				+ ", location=" + location + ", qty=" + qty + "]";
+				+ ", location=" + location + ", qty=" + qty + ", dealersId=" + dealersId + "]";
 	}
-  
 	
 }

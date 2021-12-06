@@ -13,18 +13,18 @@ spring:
     gateway:
       routes:
       - id: DealerApi
-        uri: http://localhost:8080/
+        uri: lb://DealerApi/
         predicates:
         - Path=/dealer/**
       - id: FarmerApi
-        uri: http://localhost:8081/
+        uri: lb://FarmerApi/
         predicates:
         - Path=/farmer/**
       - id: crop-avalilable
-        uri: http://localhost:8084/
+        uri: lb://crop-avalilable/
         predicates:
         - Path=/crop/**
       - id: AdminApi
-        uri: http://localhost:8082/
+        uri: http://AdminApi/
         predicates:
         - Path=/admin/**

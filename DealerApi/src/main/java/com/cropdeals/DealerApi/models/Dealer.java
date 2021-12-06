@@ -12,19 +12,7 @@ public class Dealer {
 	@Id
 	private String id;
 	private String dealerName;
-	private String subscriberCrop;
-	private int rating;
-	private List<Integer> noOfRatings;
-	
-	
-	public Dealer(String id, String dealerName, String subscriberCrop, int rating, List<Integer> noOfRatings) {
-		super();
-		this.id = id;
-		this.dealerName = dealerName;
-		this.subscriberCrop = subscriberCrop;
-		this.rating = rating;
-		this.noOfRatings = noOfRatings;
-	}
+	private List<String> subscriberCrop;
 	public String getId() {
 		return id;
 	}
@@ -37,24 +25,27 @@ public class Dealer {
 	public void setDealerName(String dealerName) {
 		this.dealerName = dealerName;
 	}
-	public String getSubscriberCrop() {
+	public List<String> getSubscriberCrop() {
 		return subscriberCrop;
 	}
-	public void setSubscriberCrop(String subscriberCrop) {
+	public void setSubscriberCrop(List<String> subscriberCrop) {
 		this.subscriberCrop = subscriberCrop;
 	}
-	public int getRating() {
-		return rating;
+	public Dealer(String id, String dealerName, List<String> subscriberCrop) {
+		super();
+		this.id = id;
+		this.dealerName = dealerName;
+		this.subscriberCrop = subscriberCrop;
 	}
-	public void setRating(int rating) {
-		this.rating = rating;
+	public Dealer() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	public List<Integer> getNoOfRatings() {
-		return noOfRatings;
+	@Override
+	public String toString() {
+		return "Dealer [id=" + id + ", dealerName=" + dealerName + ", subscriberCrop=" + subscriberCrop + "]";
 	}
-	public void setNoOfRatings(List<Integer> noOfRatings) {
-		this.noOfRatings = noOfRatings;
-	} 
+	
 	
 	
 }
